@@ -1,0 +1,14 @@
+{
+    "CakeSpec": {
+        "App": {
+            "name": "example",
+            "version": "0.9",
+            "description": "An example cakespec used for unit testing cakspec tools" 
+        },
+        "Cake": {
+            "git": {
+                "tag": "2.1.0-beta"
+            }
+        }
+    }
+}

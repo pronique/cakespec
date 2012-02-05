@@ -1,0 +1,401 @@
+{
+    "CakeSpec": {
+        "App": {
+            "name": "example",
+            "version": "0.9",
+            "description": "An example cakespec used for unit testing cakspec tools",
+            "tags": "",
+            "license": "",
+            "filesystem": {
+                "tmp": {
+                    "chmod": { "mask": "0777", "recursive": true }
+                }
+            },
+            "Config": {
+                "Schema": {},
+                "core.php": {
+                    "debug": 2,
+                    "App.encoding": "UTF-8",
+                    "LOG_ERROR": 2,
+                    "Security.level": "medium",
+                    "Security.salt": "fdsjfds86l3khge9pw23oefcncme4589444vwqe544pfw6gi9753io",
+                    "Security.cipherSeed": "2345658932023904834360947264239878573629",
+                    "Acl.classname": "DbAcl",
+                    "Acl.database": "default"
+                },
+                "database.php": {
+                    "default": {
+                        "datasource": "Database/Mysql",
+                        "persistent": false,
+                        "host": "localhost",
+                        "login": "dbuser",
+                        "password": "dbpassword",
+                        "database": "dbname",
+                        "prefix": "pro_",
+                        "encoding": "utf8"
+                    },
+                    "mongo": {
+                        "datasource": "Mongodb.MongodbSource",
+                        "host": "localhost",
+                        "database": "database_name",
+                        "port": 27017,
+                        "prefix": "pro_",
+                        "persistent": "true",
+                        "login": "mongo",
+                        "password": "secretpassword",
+                        "replicaset": {
+                            "host": "mongodb://hoge:hogehoge@localhost:27021,localhost:27022/blog",
+                            "options": {
+                                "replicaSet": "myRepl"
+                            }
+                        }
+                    },
+                    "test": {
+                        "name": "test",
+                        "datasource": "Database/Mysql",
+                        "persistent": false,
+                        "host": "localhost",
+                        "login": "testdbuser",
+                        "password": "testdbpassword",
+                        "database": "testdbname",
+                        "prefix": "pro_",
+                        "encoding": "utf8"
+                    }
+                },
+                "email.php": {
+                    "default": {
+                        "transport": "Mail",
+                        "from": "you@example.com",
+                        "charset": "utf-8",
+                        "headerCharset": "utf-8"
+                    },
+                    "smtp": {
+                        "transport": "Smtp",
+                        "from": {
+                            "site@localhost": "My Site"
+                        },
+                        "host": "localhost",
+                        "port": 25,
+                        "timeout": 30,
+                        "username": "user",
+                        "password": "secret",
+                        "client": null,
+                        "log": false,
+                        "charset": "utf-8",
+                        "headerCharset": "utf-8"
+                    },
+                    "fast": {
+                        "transport": "Smtp",
+                        "from": "you@example.com",
+                        "sender": null,
+                        "to": null,
+                        "cc": null,
+                        "bcc": null,
+                        "replyTo": null,
+                        "readReceipt": null,
+                        "returnPath": null,
+                        "messageId": true,
+                        "subject": null,
+                        "message": null,
+                        "headers": null,
+                        "viewRender": null,
+                        "template": false,
+                        "layout": false,
+                        "viewVars": null,
+                        "attachments": null,
+                        "emailFormat": null,
+                        "host": "localhost",
+                        "port": 25,
+                        "timeout": 30,
+                        "username": "user",
+                        "password": "secret",
+                        "client": null,
+                        "log": true,
+                        "charset": "utf-8",
+                        "headerCharset": "utf-8"
+                    }
+                },
+                "bootstrap.php": {
+                    "CakePlugin": {
+                        "loadAll": true
+                    },
+                    "Build": {
+                        "Plugin": [
+                            "path/a/to/plugin",
+                            "path/b/to/more/plugins"
+                        ],
+                        "Model": [
+                            "path/a/to/models",
+                            "path/b/to/more/models"
+                        ],
+                        "View": [
+                            "path/a/to/views",
+                            "path/b/to/more/views"
+                        ],
+                        "Controller": [
+                            "path/to/controllers"
+                        ],
+                        "Model/Datasource": [
+                            "path/b/to/model/Datasources"
+                        ],
+                        "Model/Behavior": [
+                            "path/b/to/model/behaviors"
+                        ],
+                        "Controller/Component": [
+                            "path/a/to/components"
+                        ],
+                        "View/Helper": [
+                            "path/to/view/helpers"
+                        ]
+                    }
+                }
+            },
+            "Console": {
+                "Command": {
+                    "Task": {}
+                },
+                "Templates": {}
+            },
+            "Plugin": {
+                "Mongodb": {
+                    "git": {
+                        "repo": "git://github.com/ichikaway/cakephp-mongodb.git",
+                        "branch": "cake2.0"
+                    }
+                },
+                "DebugKit": {
+                    "git": {
+                        "repo": "git://github.com/cakephp/debug_kit.git",
+                        "tag": "2.0.0"
+                    }
+                }
+            },
+            "Controller": {
+                "Component": {},
+                "AppController": {
+                    "AppUses": {
+                        "Controller": "Controller"
+                    },
+                    "extends": "Controller",
+                    "properties": {
+                        "helpers": {
+                            "visibility": "public",
+                            "value": [
+                                "Html",
+                                "Form",
+                                "Time"
+                            ]
+                        },
+                        "components": {
+                            "visibility": "public",
+                            "value": [
+                                "RequestHandler"
+                            ]
+                        }
+                    },
+                    "methods": {
+                        "__construct": {
+                            "visibility": "public",
+                            "callParent": "before"
+                        }
+                    }
+                },
+                "UsersController": {
+                    "comments": [
+                        ""
+                    ],
+                    "beforeClass": "",
+                    "AppUses": {
+                        "AppController": "Controller"
+                    },
+                    "extends": "AppController",
+                    "properties": {
+                        "helpers": {
+                            "visibility": "public",
+                            "value": [
+                                "Html",
+                                "Form",
+                                "Time"
+                            ]
+                        },
+                        "components": {
+                            "visibility": "public",
+                            "value": {
+                                "Session": "",
+                                "RequestHandler": {},
+                                "Auth": {
+                                    "loginRedirect": {
+                                        "controller": "users",
+                                        "action": "account"
+                                    },
+                                    "logoutRedirect": {
+                                        "controller": "pages",
+                                        "action": "display",
+                                        "home": true
+                                    }
+                                }
+                            }
+                        },
+                        "foo": {
+                            "visibility": "public",
+                            "value": "bar"
+                        }
+                    },
+                    "methods": {
+                        "__construct": {
+                            "callParent": "before",
+                            "visibility": "public"
+                        },
+                        "beforeFilter": {
+                            "visibility": "public",
+                            "callParent": "after",
+                            "code": "$this->Auth->allow('add'); // Letting users register themselves"
+                        },
+                        "login": {
+                            "visibility": "public",
+                            "code": [
+                                "if ($this->Auth->login()) {",
+                                "    $this->redirect($this->Auth->redirect());",
+                                "} else {",
+                                "    $this->Session->setFlash(__('Invalid username or password, try again'));",
+                                "}"
+                            ]
+                        },
+                        "logout": {
+                            "comment": "Handle User Logout",
+                            "visibility": "public",
+                            "code": [
+                                "$this->redirect($this->Auth->logout());"
+                            ]
+                        },
+                        "fooMyProtectedMethod": {
+                            "params": [
+                                "foo=''",
+                                "bar=array()"
+                            ],
+                            "code": [
+                                "//This is a Comment",
+                                "echo 'This is a line of code';"
+                            ],
+                            "return": "$foo . $bar"
+                        },
+                        "fooMyPrivateMethod": {
+                            "visibility": "private",
+                            "params": [
+                                "foo",
+                                "bar"
+                            ]
+                        }
+                    }
+                }
+            },
+            "Model": {
+                "Behavior": {},
+                "AppModel": {
+                    "AppUses": {
+                        "Model": "Model"
+                    },
+                    "extends": "Model"
+                },
+                "User": {
+                    "AppUses": {
+                        "AppModel": "Model",
+                        "AuthCompoent": "Controller/Component"
+                    },
+                    "extends": "AppModel",
+                    "properties": {
+                        "name": {
+                            "visibility": "public",
+                            "value": "User"
+                        }
+                    },
+                    "methods": {
+                        "beforeSave": {
+                            "code": [
+                                "if (isset($this->data[$this->alias]['password'])) {",
+                                "    $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);",
+                                "}",
+                                "return true;"
+                            ]
+                        }
+                    }
+                }
+            },
+            "Vendor": {
+                "coreylib": {
+                    "git": {
+                        "repo": "git://github.com/collegeman/coreylib.git"
+                    }
+                }
+            },
+            "View": {
+                "Elements": {},
+                "Emails": {
+                    "html": {},
+                    "text": {}
+                },
+                "Errors": {},
+                "Layouts": {
+                    "Emails": {},
+                    "js": {},
+                    "rss": {},
+                    "xml": {},
+                    "default.ctp": {
+                        "copy": "lib/Cake/View/Layouts/default.ctp"
+                    }
+                }
+            },
+            "webroot": {
+                "css": {
+                    "blueprint-css": {
+                        "git": {
+                            "repo": "git://github.com/joshuaclayton/blueprint-css.git"
+                        }
+                    },
+                    "cssreset-min.css": {
+                        "copy": "http://yui.yahooapis.com/3.4.1/build/cssreset/cssreset-min.css"
+                    },
+                    "app.css": {
+                        "contents": "/* app.css */\\n"
+                    }
+                },
+                "files": {},
+                "img": {
+                    "logo.jpg": {
+                        "copy": "http://www.google.com/logo.jpg"
+                    }
+                },
+                "js": {
+                    "app.js": {
+                        "contents": "jQuery('document').ready( function( $ ) {\\n\\t//Dom Ready\\n});\\n"
+                    },
+                    "jquery.min.js": {
+                        "copy": "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+                    }
+                }
+            }
+        },
+        "Cake": {
+            "git": {
+                "repo": "git://github.com/cakephp/cakephp.git",
+                "tag": "2.1.0-beta"
+            },
+            "filesystem": {
+                "chown": { "user": "strataapps.com", "group": "strataapps.com", "recursive": true }
+            
+            }
+        },
+        "bake": {},
+        "vars": {
+            "comments": {            
+                "copyright": "Copyright 2012 - Jonathan Cutrer - All Rights Reserved",
+                "link": "http://mydomain.com My Company",
+                "package": "Package.Name",
+                "author": "Jonathan Cutrer",
+                "license": "MIT License (http://www.opensource.org/licenses/mit-license.php)"
+            }
+        },
+        "target": "0.9",
+        "generator": "Handmade"
+    }
+}

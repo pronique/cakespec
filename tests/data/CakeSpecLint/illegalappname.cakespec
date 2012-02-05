@@ -1,0 +1,19 @@
+{
+    "CakeSpec": {
+        "App": {
+            "name": "ex?am*ple",
+            "version": "0.9",
+            "description": "An example cakespec used for unit testing cakspec tools" 
+        },
+        "Cake": {
+            "git": {
+                "repo": "git://github.com/cakephp/cakephp.git",
+                "tag": "2.1.0-beta"
+            },
+            "filesystem": {
+                "chown": { "user": "strataapps.com", "group": "strataapps.com", "recursive": true }
+            
+            }
+        }
+    }
+}
