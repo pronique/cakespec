@@ -135,16 +135,24 @@ class CakeSpecBuilder extends CakeSpecBase {
         
         if ( array_key_exists( 'core.php', $this->CakeSpec['App']['Config'] ) ) {
             cakespec_debug( 'Building App/Config/core.php' );
-            $core = $CConfig->core( 
+            $prepared_template = $CConfig->prepareTemplate( 
+                'core.php',
                 file_get_contents($configPath . DS . 'core.php'), 
                 $this->CakeSpec['App']['Config']['core.php'] 
             );
-            echo $core;    
-        }
 
+            $code = $CConfig->compileTemplate( 
+                'core.php',
+                $prepared_template, 
+                $this->CakeSpec['App']['Config']['core.php']
+            );
+            echo $code;                
+        }
+        /**
         if ( array_key_exists( 'bootstrap.php', $this->CakeSpec['App']['Config'] ) ) {
             cakespec_debug( 'Building App/Config/bootstrap.php' );
-            $CConfig->bootstrap( $this->CakeSpec['App']['Config']['bootstrap.php'] );    
+            $code = $CConfig->bootstrap( $this->CakeSpec['App']['Config']['bootstrap.php'] );    
+            echo $code;
         }
 
         if ( array_key_exists( 'database.php', $this->CakeSpec['App']['Config'] ) ) {
@@ -162,6 +170,7 @@ class CakeSpecBuilder extends CakeSpecBase {
             $CConfig->routes( $this->CakeSpec['App']['Config']['routes.php'] );    
             
         }
+        */
 
     }
 

@@ -9,85 +9,104 @@ require_once('CakeSpecBase.php');
 class CakeSpecAppConfig extends CakeSpecBase {
     
     
-    protected $coreRules = array(
-        'debug'=> array(
-            'validate'=>'/^[012]$/',
-            'match'=>"/('debug', )([0-9])\)/"
-        ),
-        'App.encoding'=> array(
-            'match'=>"/('App\.encoding', ')(UTF-8)(')/"
-        ),
-        'ERROR_LOG'=> array(
-            'validate'=>'/^[2]$/',
-            'match'=>"/(define\('LOG_ERROR', )([2])(\))/"
-        ),
-        'Security.level'=> array(
-            'validate'=>'/^(low|medium|high)$/',
-            'match'=>"/('Security\.level', ')(medium)(')/"
-        ),
-        'Security.salt'=> array(
-            'validate'=>'/^[A-Za-z0-9]+$/',
-            'match'=>"DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi"
-        ),
-        'Security.cipherSeed'=> array(
-            'validate'=>'/^[0-9]+$/',
-            'match'=>"76859309657453542496749683645"
-        ),
-        'Acl.classname'=> array(
-            'match'=>"/('Acl\.classname', ')(.*)(')/"
-        ),
-        'Acl.database'=> array(
-            'match'=>"/('Acl\.database', ')(.*)(')/"
-        )
+    protected $rules = array(
+        'core.php'=> array(
+            'debug'=> array(
+                'validate'=>'/^[012]$/',
+                'match'=>"/(Configure::write\s*\(\s*'(debug)'\s*,\s*)([0-2]*)(\s*\);)/"
+            ),
+            'App.encoding'=> array(
+                'validate'=>false,
+                'match'=>"/(Configure::write\s*\(\s*'(App\.encoding)'\s*,\s*)'(UTF-8)('\s*\);)/"
+            ),
+            'Routing.prefixes'=>array(
+                'validate'=>false,
+                'match'=>"/\\/\\/(Configure::write\s*\(\s*'(Routing\.prefixes)'\s*,\s*)(array\('admin'\))(\s*\);)/"
+            ),
+            'Cache.disable'=>array(
+                'validate'=>false,
+                'match'=>"/\\/\\/(Configure::write\s*\(\s*'(Cache\.disable)'\s*,\s*)(true)(\s*\);)/"
+            ),
+            'Cache.check'=>array(
+                'validate'=>false,
+                'match'=>"/\\/\\/(Configure::write\s*\(\s*'(Cache\.check)'\s*,\s*)(true)(\s*\);)/"
+            ),
+            'LOG_ERROR'=> array(
+                'validate'=>'/^[2]$/',
+                'match'=>"/(define\(\s*'(LOG_ERROR)'\s*,\s*)([0-2]*)(\s*\);)/"
+            ),
+            'Security.level'=> array(
+                'validate'=>'/^(low|medium|high)$/',
+                'match'=>"/(Configure::write\s*\(\s*'(Security\.level)'\s*,\s*')(medium)('\s*\);)/"
+            ),
+            'Security.salt'=> array(
+                'validate'=>'/^[A-Za-z0-9]+$/',
+                'match'=>"/(Configure::write\s*\(\s*'(Security\.salt)'\s*,\s*')([A-Za-z0-9]*)('\s*\);)/"
+            ),
+            'Security.cipherSeed'=> array(
+                'validate'=>'/^[0-9]+$/',
+                'match'=>"/(Configure::write\s*\(\s*'(Security\.cipherSeed)'\s*,\s*')([0-9]*)('\s*\);)/"
+            ),
+            'Asset.timestamp'=>array(
+                'validate'=>false,
+                'match'=>"/\\/\\/(Configure::write\s*\(\s*'(Asset\.timestamp)'\s*,\s*)(true)(\s*\);)/"
+            ),
+            'Asset.filter.css'=>array(
+                'validate'=>false,
+                'match'=>"/\\/\\/(Configure::write\s*\(\s*'(Asset\.filter\.css)'\s*,\s*')(css\.php)('\s*\);)/"
+            ),
+            'Asset.filter.js'=>array(
+                'validate'=>false,
+                'match'=>"/\\/\\/(Configure::write\s*\(\s*'(Asset\.filter\.js)'\s*,\s*')(custom_javascript_output_filter\.php)('\s*\);)/"
+            ),
+            'Acl.classname'=> array(
+                'validate'=>false,
+                'match'=>"/(Configure::write\s*\(\s*'(Acl\.classname)'\s*,\s*')([A-Za-z]*)('\s*\);)/"
+            ),
+            'Acl.database'=> array(
+                'validate'=>false,
+                'match'=>"/(Configure::write\s*\(\s*'(Acl\.database)'\s*,\s*')([a-z]*)('\s*\);)/"
+            ),
+            'date_default_timezone_set'=> array(
+                'validate'=>false,
+                'match'=>"/\\/\\/((date_default_timezone_set)\s*\(\s*')(UTC)('\s*\);)/"
+            )
+        ) //end $rules['core.php']
     );
     
     public function __construct(  ) {
 
-
         parent::__construct();   
     }
-
-    public function core( $orig, $coreSpec ) {
-        $new = $orig;
-        foreach( $coreSpec as $key=>$val ) {
-            if ( array_key_exists($key, $this->coreRules ) ) {
-                echo "\$val = $val\n" ;
-                /*
-                if ( array_key_exists('validate', $this->coreRules[$key] )
-                    && substr( $this->coreRules[$key]['validate'], 0, 1) == '/'
-                ) { 
-                    if ( preg_match( $this->coreRules[$key]['validate'],  $val ) ) {
-                        $new = preg_replace(
-                            $this->coreRules[$key]['match'],
-                            "$1$val$3", 
-                            $new
-                        ); 
-                    }                   
-                } elseif( ) {
-                        $new = preg_replace(
-                            $this->coreRules[$key]['match'],
-                            "$1$val$3", 
-                            $new
-                        );                    
-                }
-                */
-                
-            }                
-        }
-                
-        return $new;        
-    }  
-
-    public function bootstrap( $coreSpec ) {
     
+    protected function replaceWithVariableCallback( $matches ) {
+        return $matches[1] . '{$' . $matches[2] . '}' . $matches[4];
     } 
-          
-    public function database( $dbSpec ) {
-        
-    }
-
-    public function email( $emailSpec ) {
-        
-    }
-        
+    
+    
+    public function prepareTemplate( $filename, $src, $vars, $rules ) {
+        $tmpl = $src;
+        foreach( $vars as $key=>$val ) {
+            if ( array_key_exists($key, $this->rules[$filename] ) ) {
+                $tmpl = preg_replace_callback(
+                    $this->rules[$filename][$key]['match'],
+                    'CakeSpecAppConfig::replaceWithVariableCallback', 
+                    $tmpl
+                ); 
+            }                
+        }     
+        return $tmpl; 
+    } 
+    
+    public function compileTemplate( $filename, $template, $vars ) {
+        $compiled_template = $template;
+        foreach( $vars as $key=>$val ) {
+            $compiled_template = preg_replace(
+                "/{\\$" . preg_quote($key) . "}/",
+                $val, 
+                $compiled_template
+            );             
+        }     
+        return $compiled_template;
+    }   
 }
