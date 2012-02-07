@@ -31,9 +31,9 @@ Help and more command line options:
 ## Installation
 
 
-    git clone https://github.com/pronique/cakespec.git /usr/local/cakespec
+    git clone https://github.com/pronique/cakespec.git /usr/share/cakespec
 
-    ln -s /usr/local/cakespec /usr/bin/cakespec
+    ln -s /usr/share/cakespec /usr/bin/cakespec
 
 
 --------------------------------------------------------------------------
