@@ -1,4 +1,4 @@
-CakeSpec
+# CakeSpec
 
 Maturity : alpha
 
@@ -28,6 +28,15 @@ Help and more command line options:
     cakespec --help
 
 
+## Installation
+
+
+    git clone https://github.com/pronique/cakespec.git /usr/local/cakespec
+
+    ln -s /usr/local/cakespec /usr/bin/cakespec
+
+
+--------------------------------------------------------------------------
 CakeSpec is Open Source Software created and managed by PRONIQUE Software.
 
 http://www.pronique.com
