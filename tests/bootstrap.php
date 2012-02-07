@@ -14,5 +14,4 @@ define( 'CAKESPEC_TEST_TMP', '/tmp/_testcakespec' );
 define( 'CAKESPEC_TEST_DATA', dirname(__FILE__) . DS . 'data' );
 define( 'CAKESPEC_QUIET', false );
 
-
 require_once( CAKESPEC_TEST_DIR . DS . '..' . DS . 'bootstrap.php' );
