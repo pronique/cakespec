@@ -6,6 +6,7 @@ CakeSpec is a tool to get a CakePHP Project up and running fast using an applica
 specification file written in JSON format.
 
 CakeSpec can...
+
 * Pull CakePHP and plugins from git.  
 * Configure filesystem permissions
 * Create PHP classes
